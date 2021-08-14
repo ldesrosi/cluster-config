@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+- ../../base
+
+resources:
+- cluster-config-manager-app.yaml
+
+patchesStrategicMerge:
+- patch-custom-argocd-app-controller-clusterrolebinding.yaml
+- patch-openshift-gitops-operator.yaml
