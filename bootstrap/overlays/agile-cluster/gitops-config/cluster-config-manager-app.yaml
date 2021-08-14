@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster-config
   source:
-    path: clusters/agile-cluster/argocd/apps/cluster/overlays/default
+    path: clusters/agile-cluster/argocd
     repoURL: https://github.com/ldesrosi/cluster-config.git
     targetRevision: master
   syncPolicy:

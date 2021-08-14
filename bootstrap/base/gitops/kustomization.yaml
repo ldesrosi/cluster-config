@@ -5,5 +5,3 @@ resources:
 - custom-argocd-app-controller-clusterrole.yaml
 - custom-argocd-app-controller-clusterrolebinding.yaml
 - openshift-gitops-operator.yaml
-- cluster-config-project.yaml
-# - tenant-project.yaml
