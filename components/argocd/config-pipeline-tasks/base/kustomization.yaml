@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
 - namespace-cluster-ci.yaml
-#- config-pipeline-tasks.yaml
+- config-pipeline-tasks.yaml
