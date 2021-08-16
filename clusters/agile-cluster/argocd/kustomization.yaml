@@ -5,5 +5,5 @@ namespace: openshift-gitops
 
 resources:
 - ../../../components/argocd/config-pipeline-operator/base
-- ../../../config-cluster-namespaces/base
+- ../../../components/argocd/config-cluster-namespaces/base
 #- ../../../components/argocd/config-pipeline-tasks/base
