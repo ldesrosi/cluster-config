@@ -7,5 +7,5 @@ resources:
 - ../../../components/argocd/apps/config-pipeline-operator/base
 - ../../../components/argocd/apps/config-cluster-namespaces/base
 #- ../../../components/argocd/apps/config-sealed-secrets/base
-- ../../../components/argocd/apps/config-cluster-pipelines/base
+#- ../../../components/argocd/apps/config-cluster-pipelines/base
 

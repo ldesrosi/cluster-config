@@ -4,7 +4,7 @@ metadata:
   name: validate-manifests-pipeline
 spec:
   params:
-    - name: source-dirs
+    - name: source-list
       type: array
       description: List of folders within the source PR that requires validation.
   resources:
@@ -21,5 +21,6 @@ spec:
             resource: source
       params:
         - name: source-dirs
-          value: $(params.source-dirs[*])
+          value: 
+            - $(params.source-list)
 
