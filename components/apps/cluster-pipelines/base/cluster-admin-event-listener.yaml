@@ -1,4 +1,4 @@
-apiVersion: triggers.tekton.dev/v1beta1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: github-pr
@@ -7,15 +7,13 @@ spec:
   triggers:
     - name: github-listener
       interceptors:
-        - ref:
-            name: "github"
-          params:
-            - name: "secretRef"
-              value:
-                secretName: github-interceptor-secret
-                secretKey: secretToken
-            - name: "eventTypes"
-              value: ["pull_request"]
+        - github:
+            secretRef:
+              secretName: github-interceptor-secret
+              secretKey: secretToken
+            eventTypes: ["pull_request"]
+        - cel:
+            filter: "body.action in ['opened', 'synchronize', 'reopened']"
       bindings:
         - ref: cluster-admin-pr-binding
       template:
