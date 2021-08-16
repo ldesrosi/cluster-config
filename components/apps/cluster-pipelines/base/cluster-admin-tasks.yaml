@@ -8,10 +8,8 @@ spec:
       default: 
       - /source
       type: array
-  resources:
-    inputs:
-      - name: workspace
-        type: git
+  workspaces:
+    - name: source
   results:
     - name: status
       description: Status can be one of ['Passed','Failed']
