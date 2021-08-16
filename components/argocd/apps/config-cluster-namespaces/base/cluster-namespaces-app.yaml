@@ -14,7 +14,7 @@ spec:
   project: cluster-config
   source:
     path: components/apps/cluster-namespaces/base
-    repoURL: https://github.com/gnunn-gitops/cluster-config.git
+    repoURL: https://github.com/ldesrosi/cluster-config.git
     targetRevision: master
   syncPolicy:
     automated:
