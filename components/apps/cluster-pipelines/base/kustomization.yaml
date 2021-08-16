@@ -7,3 +7,4 @@ resources:
 - cluster-admin-trigger-template.yaml
 - cluster-admin-trigger-binding.yaml
 - cluster-admin-event-listener.yaml
+- cluster-admin-route.yaml
