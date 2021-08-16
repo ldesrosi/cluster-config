@@ -1,0 +1,32 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: cluster-admin-pipeline-template
+spec:
+  params:
+    - name: gitrevision
+      description: The git revision (SHA)
+      default: master
+    - name: gitrepositoryurl
+      description: The git repository url ("https://github.com/foo/bar.git")
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: validate-manifests-run-
+      spec:
+        pipelineRef:
+          name: validate-manifests-pipeline
+        params:
+          - name: source
+            value: 
+              - /
+        resources:
+          - name: source
+            resourceSpec:
+              type: git
+              params:
+                - name: revision
+                  value: $(tt.params.gitrevision)
+                - name: url
+                  value: $(tt.params.gitrepositoryurl)

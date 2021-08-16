@@ -1,0 +1,4 @@
+- op:
+  path: /resourcetemplates/spec/params/0/value
+  value: 
+    - cert-manager
