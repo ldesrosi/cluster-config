@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: openshift-gitops
 
 resources:
-- ../../../components/argocd/config-pipeline-operator/base
-- ../../../components/argocd/config-cluster-namespaces/base
-#- ../../../components/argocd/config-pipeline-tasks/base
+- ../../../components/argocd/apps/config-pipeline-operator/base
+- ../../../components/argocd/apps/config-cluster-namespaces/base
+#- ../../../components/argocd/apps/config-pipeline-tasks/base
