@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: config-pipeline-tasks
+  name: config-pipelines-app
   annotations:
     argocd.argoproj.io/sync-wave: "21"
   labels:
     gitops.ownedBy: cluster-config
 spec:
   destination:
-    namespace: cluster-gitops-repo-pipelines
+    namespace: cluster-pipelines
     server: https://kubernetes.default.svc
   project: cluster-config
   source:
-    path: tasks
-    repoURL: https://github.com/ldesrosi/ibm-garage-tekton-tasks.git
-    targetRevision: main
+    path: components/apps/cluster-pipelines/base
+    repoURL: https://github.com/ldesrosi/cluster-config.git
+    targetRevision: master
   syncPolicy:
     automated:
       prune: true
