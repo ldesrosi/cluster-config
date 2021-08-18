@@ -2,10 +2,18 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: cluster-admin-route
+  labels:
+    app: github-listener
+    app.kubernetes.io/managed-by: EventListener
+    app.kubernetes.io/part-of: Triggers
+    eventlistener: github-listener
+  annotations:
+    openshift.io/host.generated: 'true'
 spec:
-  port:
-    targetPort: 8080
   to:
     kind: Service
     name: el-github-pr
     weight: 100
+  port:
+    targetPort: http-listener
+  wildcardPolicy: None
