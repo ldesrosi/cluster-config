@@ -12,7 +12,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster-config
   source:
-    path: components/apps/cluster-pipelines/base
+    path: components/apps/cluster-pipelines/overlays
     repoURL: https://github.com/ldesrosi/cluster-config.git
     targetRevision: master
   syncPolicy:
