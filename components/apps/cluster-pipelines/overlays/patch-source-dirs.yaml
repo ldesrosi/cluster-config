@@ -1,5 +1,6 @@
 - op: replace
   path: /spec/resourcetemplates/0/spec/params
   value: 
-    - name: source
-      value: cert-manager
+    - name: source-list
+      value: 
+        - cert-manager
