@@ -1,4 +1,5 @@
-- op:
-  path: /resourcetemplates/spec/params/0/value
+- op: replace
+  path: /spec/resourcetemplates/0/spec/params
   value: 
-    - cert-manager
+    - name: source
+      value: cert-manager
