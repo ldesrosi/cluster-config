@@ -18,7 +18,7 @@ spec:
   steps:
     - name: process-source-repo
       image: quay.io/openshift/origin-cli:latest
-      workingDir: $(workspaces.workspace.path)
+      workingDir: $(workspaces.source.path)
       script: |
         #!/usr/bin/env bash
 
