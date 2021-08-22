@@ -22,5 +22,44 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-        ls -al /workspace/source | tee $(results.status.path)
+        ls -al
 
+        echo '-------\n'
+        env
+        echo '---------\n'
+        echo Passed | tee $(results.status.path)
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: set-build-status
+spec:
+  params:
+    - name: status
+      type: string
+  env:
+    - name: GIT_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: git-credentials
+          key: password
+          optional: true
+  resources:
+    inputs:
+      - name: source
+        type: git
+  results:
+    - name: status
+      description: Status can be one of ['Passed','Failed']
+  steps:
+    - name: process-source-repo
+      image: quay.io/openshift/origin-cli:latest
+      workingDir: /workspace/source
+      script: |
+        #!/usr/bin/env bash
+
+        TARGET_URL=""
+        ORG=""
+        REPO=""
+
+        curl -H "Authorization: token ${GIT_TOKEN}" --request POST --data '{"state": "$(params.status)", "description": "$(params.status_descr)", "target_url": "${TARGET_URL}"}' https://api.github.com/repos/${ORG}/${REPO}/statuses/${bamboo.repository.revision.number} > /dev/null
