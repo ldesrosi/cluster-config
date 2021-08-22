@@ -48,7 +48,13 @@ spec:
       image: quay.io/openshift/origin-cli:latest
       workingDir: /
       env:
-        - name: GIT_TOKEN
+        - name: GIT_USER
+          valueFrom:
+            secretKeyRef:
+              name: git-credentials
+              key: username
+              optional: true
+        - name: GIT_PASSWORD
           valueFrom:
             secretKeyRef:
               name: git-credentials
@@ -75,8 +81,8 @@ spec:
 
         echo $GIT_API_URL
 
-        curl -H "Authorization: token ${GIT_TOKEN}" \
-             -H "Accept: application/vnd.github.v3+json" \
+        curl -H "Accept: application/vnd.github.v3+json" \
+             -u "$(params.GIT_USER:$(params.GIT_PASSWORD)"
              --request POST \
              --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' \
              $GIT_API_URL 
