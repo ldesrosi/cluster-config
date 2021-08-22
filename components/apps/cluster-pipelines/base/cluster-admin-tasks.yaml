@@ -56,11 +56,14 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: PIPELINE_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
       script: |
         #!/usr/bin/env bash
 
         BASE_URL=$(oc whoami --show-console)
-        NAMESPACE=$(oc project --short=true)
-        TARGET_URL="${BASE_URL}/k8s/ns/${NAMESPACE}/tekton.dev~v1beta1~PipelineRun/${PIPELINE_RUN_ID}"
+        TARGET_URL="${BASE_URL}/k8s/ns/${PIPELINE_NAMESPACE}/tekton.dev~v1beta1~PipelineRun/${PIPELINE_RUN_ID}"
 
-        curl -H "Authorization: token ${GIT_TOKEN}" --request POST --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' $(git-status-url) > /dev/null
+        curl -H "Authorization: token ${GIT_TOKEN}" --request POST --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' $(params.git-status-url) > /dev/null
