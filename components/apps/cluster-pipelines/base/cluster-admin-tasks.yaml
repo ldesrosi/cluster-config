@@ -80,8 +80,10 @@ spec:
         GIT_API_URL="${SOURCE/$PATTERN/$VALUE}"
 
         echo $GIT_API_URL
-
-        curl -H "Accept: application/vnd.github.v3+json" \
+        echo "----"
+        echo $TARGET_URL
+        
+        curl -i -H "Accept: application/vnd.github.v3+json" \
              -u "${GIT_USER}:${GIT_PASSWORD}" \
              --request POST \
              --data '{"context": "continuous-integration/tekton", "state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' \
