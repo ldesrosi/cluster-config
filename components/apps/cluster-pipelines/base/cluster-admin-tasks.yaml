@@ -68,7 +68,6 @@ spec:
         BASE_URL=$(oc whoami --show-console)
         TARGET_URL="${BASE_URL}/k8s/ns/${PIPELINE_NAMESPACE}/tekton.dev~v1beta1~PipelineRun/${PIPELINE_RUN_ID}"
 
-        sleep 100000
         SOURCE="$(params.git-status-url)"
         PATTERN="{sha}"
         VALUE="$(params.git-revision)"
