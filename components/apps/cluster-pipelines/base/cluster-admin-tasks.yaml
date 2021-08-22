@@ -81,13 +81,9 @@ spec:
 
         echo $GIT_API_URL
         echo "----"
-        echo $TARGET_URL
-        echo "----------------"
-        echo '{"context": "continuous-integration/tekton", "state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}'
-        echo "----------------"
-        
+
         curl -i -H "Accept: application/vnd.github.v3+json" \
              -u "${GIT_USER}:${GIT_PASSWORD}" \
              --request POST \
-             --data '{"context": "continuous-integration/tekton", "state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' \
+             --data "{\"context\": \"continuous-integration/tekton\", \"state\": \"$(params.build-status)\", \"description\": \"$(params.build-status-descr)\", \"target_url\": \"${TARGET_URL}\"}" \
              $GIT_API_URL 
