@@ -63,7 +63,7 @@ spec:
         - name: PIPELINE_RUN_ID
           valueFrom:
             fieldRef:
-              fieldPath: metadata.name
+              fieldPath: metadata.labels['tekton.dev/pipelineRun']
         - name: PIPELINE_NAMESPACE
           valueFrom:
             fieldRef:
@@ -82,6 +82,9 @@ spec:
         echo $GIT_API_URL
         echo "----"
         echo $TARGET_URL
+        echo "----------------"
+        echo '{"context": "continuous-integration/tekton", "state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}'
+        echo "----------------"
         
         curl -i -H "Accept: application/vnd.github.v3+json" \
              -u "${GIT_USER}:${GIT_PASSWORD}" \
