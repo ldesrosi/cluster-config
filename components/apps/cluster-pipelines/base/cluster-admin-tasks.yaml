@@ -75,4 +75,8 @@ spec:
 
         echo $GIT_API_URL
 
-        curl -H "Authorization: token ${GIT_TOKEN}" --request POST --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' $GIT_API_URL > /dev/null
+        curl -H "Authorization: token ${GIT_TOKEN}" \
+             -H "Accept: application/vnd.github.v3+json" \
+             --request POST \
+             --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' \
+             $GIT_API_URL 
