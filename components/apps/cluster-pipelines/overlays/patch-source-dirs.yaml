@@ -1,6 +1,12 @@
 - op: replace
   path: /spec/resourcetemplates/0/spec/params
   value: 
+    - name: git-url
+      value: $(tt.params.git-repository-url)
+    - name: git-status-url
+      value: $(tt.params.git-status-url)
+    - name: git-revision
+      value: $(tt.params.git-revision)
     - name: source-list
       value: 
         - cert-manager
