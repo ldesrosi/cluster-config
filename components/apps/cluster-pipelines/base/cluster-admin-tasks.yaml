@@ -67,6 +67,8 @@ spec:
 
         BASE_URL=$(oc whoami --show-console)
         TARGET_URL="${BASE_URL}/k8s/ns/${PIPELINE_NAMESPACE}/tekton.dev~v1beta1~PipelineRun/${PIPELINE_RUN_ID}"
+
+        sleep 100000
         GIT_API_URL="${$(params.git-status-url)/{sha}/$(params.git-revision)}"
 
         echo $GIT_API_URL

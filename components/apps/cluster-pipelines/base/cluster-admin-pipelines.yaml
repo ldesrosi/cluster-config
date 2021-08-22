@@ -28,7 +28,7 @@ spec:
         - name: git-status-url
           value: $(params.git-status-url)
         - name: git-revision
-          value: $(tt.params.git-revision)
+          value: $(params.git-revision)
         - name: build-status
           value: pending
         - name: build-status-descr
