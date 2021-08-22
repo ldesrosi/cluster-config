@@ -82,7 +82,7 @@ spec:
         echo $GIT_API_URL
 
         curl -H "Accept: application/vnd.github.v3+json" \
-             -u "$(params.GIT_USER:$(params.GIT_PASSWORD)"
+             -u "${GIT_USER}:${GIT_PASSWORD}" \
              --request POST \
              --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' \
              $GIT_API_URL 
