@@ -4,11 +4,13 @@ metadata:
   name: cluster-admin-pipeline-template
 spec:
   params:
-    - name: gitrevision
+    - name: git-revision
       description: The git revision (SHA)
       default: master
-    - name: gitrepositoryurl
+    - name: git-repository-url
       description: The git repository url ("https://github.com/foo/bar.git")
+    - name: git-status-url
+      description: The status api url 
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
