@@ -37,6 +37,8 @@ spec:
   params:
     - name: git-status-url
       type: string
+    - name: git-revision
+      type: string
     - name: build-status
       type: string
     - name: build-status-descr
@@ -63,8 +65,10 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-        sleep 100000
         BASE_URL=$(oc whoami --show-console)
         TARGET_URL="${BASE_URL}/k8s/ns/${PIPELINE_NAMESPACE}/tekton.dev~v1beta1~PipelineRun/${PIPELINE_RUN_ID}"
+        GIT_API_URL="${$(params.git-status-url)/{sha}/$(params.git-revision)}"
 
-        curl -H "Authorization: token ${GIT_TOKEN}" --request POST --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' $(params.git-status-url) > /dev/null
+        echo $GIT_API_URL
+        
+        curl -H "Authorization: token ${GIT_TOKEN}" --request POST --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' GIT_API_URL > /dev/null
