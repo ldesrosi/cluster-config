@@ -70,5 +70,5 @@ spec:
         GIT_API_URL="${$(params.git-status-url)/{sha}/$(params.git-revision)}"
 
         echo $GIT_API_URL
-        
-        curl -H "Authorization: token ${GIT_TOKEN}" --request POST --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' GIT_API_URL > /dev/null
+
+        curl -H "Authorization: token ${GIT_TOKEN}" --request POST --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' $GIT_API_URL > /dev/null
