@@ -28,3 +28,39 @@ spec:
         env
         echo '---------\n'
         echo Passed | tee $(results.status.path)
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: set-build-status
+spec:
+  params:
+    - name: git-status-url
+      type: string
+    - name: build-status
+      type: string
+    - name: build-status-descr
+      type: string
+  steps:
+    - name: process-source-repo
+      image: quay.io/openshift/origin-cli:latest
+      workingDir: /
+      env:
+        - name: GIT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: git-credentials
+              key: password
+              optional: true
+        - name: PIPELINE_RUN_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      script: |
+        #!/usr/bin/env bash
+
+        BASE_URL=$(oc whoami --show-console)
+        NAMESPACE=$(oc project --short=true)
+        TARGET_URL="${BASE_URL}/k8s/ns/${NAMESPACE}/tekton.dev~v1beta1~PipelineRun/${PIPELINE_RUN_ID}"
+
+        curl -H "Authorization: token ${GIT_TOKEN}" --request POST --data '{"state": "$(params.build-status)", "description": "$(params.build-status-descr)", "target_url": "${TARGET_URL}"}' $(git-status-url) > /dev/null

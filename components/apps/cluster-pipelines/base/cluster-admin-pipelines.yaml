@@ -4,6 +4,15 @@ metadata:
   name: validate-manifests-pipeline
 spec:
   params:
+    - name: git-url
+      type: string
+      description: url of the git repository.
+    - name: git-revision
+      type: string
+      description: git revision that triggered the build.
+    - name: git-status-url
+      type: string
+      description: url to post git updates
     - name: source-list
       type: array
       description: List of folders within the source PR that requires validation.
@@ -11,10 +20,23 @@ spec:
     - name: source
       type: git
   tasks:
+    - name: set-build-status-to-pending
+      taskRef:
+        kind: Task
+        name: set-build-status
+      params:
+        - name: git-status-url
+          value: $(params.git-status-url)
+        - name: build-status
+          value: pending
+        - name: build-status-descr
+          value: Tekton build is running.
     - name: validate-manifests
       taskRef:
         kind: Task
         name: validate-manifests
+      runAfter:
+        - set-build-status-to-pending
       resources:
         inputs:
           - name: source
@@ -23,4 +45,16 @@ spec:
         - name: source-dirs
           value: 
             - $(params.source-list)
+  finally:
+    - name: update-final-build-status
+      taskRef:
+        kind: Task
+        name: set-build-status
+      params:
+        - name: git-status-url
+          value: $(params.git-status-url)
+        - name: build-status
+          value: success
+        - name: build-status-descr
+          value: Tekton build has completed.      
 

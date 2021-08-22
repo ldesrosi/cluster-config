@@ -4,7 +4,9 @@ metadata:
   name: cluster-admin-pr-binding
 spec:
   params:
-    - name: gitrepositoryurl
+    - name: git-repository-url
       value: $(body.repository.clone_url)
-    - name: gitrevision
+    - name: git-status-url
+      value: $(body.repository.statuses_url)
+    - name: git-revision
       value: $(body.pull_request.head.sha)
