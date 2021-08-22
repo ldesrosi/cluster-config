@@ -69,7 +69,10 @@ spec:
         TARGET_URL="${BASE_URL}/k8s/ns/${PIPELINE_NAMESPACE}/tekton.dev~v1beta1~PipelineRun/${PIPELINE_RUN_ID}"
 
         sleep 100000
-        GIT_API_URL="${$(params.git-status-url)/{sha}/$(params.git-revision)}"
+        SOURCE="$(params.git-status-url)"
+        PATTERN="{sha}"
+        VALUE="$(params.git-revision)"
+        GIT_API_URL="${SOURCE/$PATTERN/$VALUE}"
 
         echo $GIT_API_URL
 
