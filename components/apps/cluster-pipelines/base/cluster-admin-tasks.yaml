@@ -22,5 +22,5 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-        echo Passed | tee $(results.status.path)
+        ls -al /workspace/source | tee $(results.status.path)
 
