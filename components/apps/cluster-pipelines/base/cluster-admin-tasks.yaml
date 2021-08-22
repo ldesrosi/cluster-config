@@ -63,6 +63,7 @@ spec:
       script: |
         #!/usr/bin/env bash
 
+        sleep 100000
         BASE_URL=$(oc whoami --show-console)
         TARGET_URL="${BASE_URL}/k8s/ns/${PIPELINE_NAMESPACE}/tekton.dev~v1beta1~PipelineRun/${PIPELINE_RUN_ID}"
 
