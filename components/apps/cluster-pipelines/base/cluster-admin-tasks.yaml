@@ -22,12 +22,13 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-        ls -al
 
-        echo '-------\n'
+        echo '-------'
         env
-        echo '---------\n'
+        echo '---------'
         echo Passed | tee $(results.status.path)
+        
+        sleep 1000000
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
