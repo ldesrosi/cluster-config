@@ -19,10 +19,11 @@ spec:
     - name: process-source-repo
       image: quay.io/openshift/origin-cli:latest
       workingDir: /workspace/source
+      args: [ "$(params.source-dirs)" ]
       script: |
         #!/usr/bin/env bash
 
-        echo ["a", "$(params.source-dirs)". "c"]
+        echo "$@"
 
         echo Passed | tee $(results.status.path)
 
