@@ -22,10 +22,8 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-        echo $(params.source-dirs[*])
-        echo '-------'
-        #echo $PKG_LIST
-        echo '---------'
+        echo "$(params.source-dirs[*])"
+
         echo Passed | tee $(results.status.path)
 
         sleep 1000000
