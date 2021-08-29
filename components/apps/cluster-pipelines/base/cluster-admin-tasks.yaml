@@ -81,7 +81,7 @@ spec:
         echo "Setting target URL to: ${TARGET_URL}"
         echo "Build status is: $(params.build-status)"
         echo "HTTP Status code from API:"
-        curl -s -o /dev/null -w "%{http_code} \
+        curl -s -o /dev/null -w "%{http_code}" \
              -H "Accept: application/vnd.github.v3+json" \
              -u "${GIT_USER}:${GIT_PASSWORD}" \
              --request POST \
