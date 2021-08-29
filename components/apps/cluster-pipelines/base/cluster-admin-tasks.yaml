@@ -25,7 +25,7 @@ spec:
 
         echo "$@"
 
-        echo -n pending >> $(results.status.path)
+        echo -n success >> $(results.status.path)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
@@ -80,8 +80,9 @@ spec:
         echo "Updating build status via ${GIT_API_URL}"
         echo "Setting target URL to: ${TARGET_URL}"
         echo "Build status is: $(params.build-status)"
-
-        curl -i -H "Accept: application/vnd.github.v3+json" \
+        echo "HTTP Status code from API:"
+        curl -s -o /dev/null -w "%{http_code} \
+             -H "Accept: application/vnd.github.v3+json" \
              -u "${GIT_USER}:${GIT_PASSWORD}" \
              --request POST \
              --data "{\"context\": \"continuous-integration/tekton\", \"state\": \"$(params.build-status)\", \"description\": \"$(params.build-status-descr)\", \"target_url\": \"${TARGET_URL}\"}" \
