@@ -22,7 +22,7 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-        echo "$(params.source-dirs[*])"
+        echo ["a", "$(params.source-dirs[*])". "c"]
 
         echo Passed | tee $(results.status.path)
 
