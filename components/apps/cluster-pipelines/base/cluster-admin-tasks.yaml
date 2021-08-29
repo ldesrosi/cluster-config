@@ -79,6 +79,7 @@ spec:
 
         echo "Updating build status via ${GIT_API_URL}"
         echo "Setting target URL to: ${TARGET_URL}"
+        echo "Build status is: $(params.build-status)"
 
         curl -i -H "Accept: application/vnd.github.v3+json" \
              -u "${GIT_USER}:${GIT_PASSWORD}" \
