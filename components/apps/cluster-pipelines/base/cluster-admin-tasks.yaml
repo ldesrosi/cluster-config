@@ -22,7 +22,7 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-        echo $(params.source-list[*]
+        echo $(params.source-list[*])
         echo '-------'
         #echo $PKG_LIST
         echo '---------'
