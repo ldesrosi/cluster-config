@@ -22,12 +22,12 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-
+        export PKG_LIST="$(params.source-list[*]"
         echo '-------'
-        env
+        echo $PKG_LIST
         echo '---------'
         echo Passed | tee $(results.status.path)
-        
+
         sleep 1000000
 ---
 apiVersion: tekton.dev/v1beta1
