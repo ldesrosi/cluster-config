@@ -25,7 +25,7 @@ spec:
 
         echo "$@"
 
-        echo success | tee $(results.status.path)
+        echo pending | tee $(results.status.path)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
