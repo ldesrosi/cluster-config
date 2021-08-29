@@ -25,9 +25,7 @@ spec:
 
         echo "$@"
 
-        echo Passed | tee $(results.status.path)
-
-        sleep 1000000
+        echo success | tee $(results.status.path)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
@@ -79,8 +77,8 @@ spec:
         VALUE="$(params.git-revision)"
         GIT_API_URL="${SOURCE/$PATTERN/$VALUE}"
 
-        echo $GIT_API_URL
-        echo "----"
+        echo "Updating build status via ${GIT_API_URL}"
+        echo "Setting target URL to: ${TARGET_URL}"
 
         curl -i -H "Accept: application/vnd.github.v3+json" \
              -u "${GIT_USER}:${GIT_PASSWORD}" \
