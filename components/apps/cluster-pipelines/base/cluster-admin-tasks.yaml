@@ -22,9 +22,9 @@ spec:
       script: |
         #!/usr/bin/env bash
 
-        export PKG_LIST="$(params.source-list[*]"
+        echo $(params.source-list[*]
         echo '-------'
-        echo $PKG_LIST
+        #echo $PKG_LIST
         echo '---------'
         echo Passed | tee $(results.status.path)
 
