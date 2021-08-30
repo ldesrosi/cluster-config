@@ -31,7 +31,9 @@ spec:
            echo "With options:"
            for option in $COMP_OPTIONS
            do
-              echo "  ${option}"
+              KEY=$(echo $option | sed 's/\(^.*\)=\(.*\)/\1/g')
+              VALUE=$(echo $option | sed 's/\(^.*\)=\(.*\)/\2/g')
+              echo "  ${KEY}: ${VALUE}"
            done
         done
 
@@ -90,10 +92,12 @@ spec:
         echo "Updating build status via ${GIT_API_URL}"
         echo "Setting target URL to: ${TARGET_URL}"
         echo "Build status is: $(params.build-status)"
-        echo "HTTP Status code from API:"
-        curl -s -o /dev/null -w "%{http_code}" \
+        
+        HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
              -H "Accept: application/vnd.github.v3+json" \
              -u "${GIT_USER}:${GIT_PASSWORD}" \
              --request POST \
              --data "{\"context\": \"continuous-integration/tekton\", \"state\": \"$(params.build-status)\", \"description\": \"$(params.build-status-descr)\", \"target_url\": \"${TARGET_URL}\"}" \
-             $GIT_API_URL 
+             $GIT_API_URL)
+
+        echo "HTTP Status code from API: ${HTTP_STATUS}"
