@@ -26,9 +26,13 @@ spec:
         for component in "$@"
         do
            COMP_NAME=$(echo "$component" | sed 's/\(^.*\)(\(.*\))/\1/g')
-           COMP_OPTIONS=$(echo "$component" | sed 's/\(^.*\)(\(.*\))/\2/g')
+           COMP_OPTIONS=$(echo "$component" | sed 's/\(^.*\)(\(.*\))/\2/g' | tr "," "\n")
            echo "About to process ${COMP_NAME}"
-           echo "With options: ${COMP_OPTIONS}"
+           echo "With options:"
+           for option in $COMP_OPTIONS
+           do
+              echo "  ${option}"
+           done
         done
 
         echo -n success >> $(results.status.path)
