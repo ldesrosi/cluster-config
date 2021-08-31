@@ -71,10 +71,9 @@ spec:
                 result=failure
               fi
             fi
+          done
 
-        done
-
-        echo -n $result >> $(results.status.path)
+          echo -n $result >> $(results.status.path)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
