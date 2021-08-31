@@ -21,56 +21,56 @@ spec:
       workingDir: /workspace/source
       args: [ "$(params.source-dirs)" ]
       script: |
-        #!/usr/bin/env bash
+          #!/usr/bin/env bash
 
-        result=success
+          result=success
 
-        check_options() {
-          local options=$1
-          local value=$2
-          return [[ " ${options[*]} " =~ "${value}=true" ]];
-        }
+          check_options() {
+            local options=$1
+            local value=$2
+            return [[ " ${options[*]} " =~ "${value}=true" ]];
+          }
 
-        need_copy() {
-          return check_options $1 copy
-        }
+          need_copy() {
+            return check_options $1 copy
+          }
 
-        need_validate() {
-          return check_options $1 validate
-        }
+          need_validate() {
+            return check_options $1 validate
+          }
 
-        need_generate() {
-          return check_options $1 generate
-        }
+          need_generate() {
+            return check_options $1 generate
+          }
 
-        validate_kustomize() {
+          validate_kustomize() {
             local component_path=$1
             $(oc apply -k $component_path --dry-run=client); RESULT=$?
             return $RESULT
-        }
+          }
 
-        for component in "$@"
-        do
-           COMP_NAME=$(echo "$component" | sed 's/\(^.*\)(\(.*\))/\1/g')
-           COMP_OPTIONS=$(echo "$component" | sed 's/\(^.*\)(\(.*\))/\2/g' | tr "," "\n")
-           echo "About to process ${COMP_NAME}"
-           echo "With options:"
-           for option in $COMP_OPTIONS
-           do
+          for component in "$@"
+          do
+            COMP_NAME=$(echo "$component" | sed 's/\(^.*\)(\(.*\))/\1/g')
+            COMP_OPTIONS=$(echo "$component" | sed 's/\(^.*\)(\(.*\))/\2/g' | tr "," "\n")
+            echo "About to process ${COMP_NAME}"
+            echo "With options:"
+            for option in $COMP_OPTIONS
+            do
               KEY=$(echo $option | sed 's/\(^.*\)=\(.*\)/\1/g')
               VALUE=$(echo $option | sed 's/\(^.*\)=\(.*\)/\2/g')
               echo "  ${KEY}: ${VALUE}"
-           done
+            done
 
-           if [ need_validate $COMP_OPTIONS ] then
+            if [ need_validate $COMP_OPTIONS ] ; then
               echo "Validating ${component} YAMLs."
-              if [ validate_kustomize $component ] then
+              if [ validate_kustomize $component ] ; then
                 echo "Validation successful."
               else
-                 echo "Failed validation."
-                 result=failure
+                echo "Failed validation."
+                result=failure
               fi
-           fi
+            fi
 
         done
 
