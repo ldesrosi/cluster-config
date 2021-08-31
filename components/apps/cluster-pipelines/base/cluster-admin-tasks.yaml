@@ -29,15 +29,13 @@ spec:
             local value=$1
             shift
             local options=("$@")
-            local result=1
             for option in $options
             do
               if [ $option == $value ] ; then
-                result=0
-                break
+                return 0
               fi
             done 
-            return result;
+            return 1;
           }
 
           validate_kustomize() {
