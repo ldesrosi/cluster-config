@@ -34,7 +34,7 @@ spec:
               KEY=$(echo $option | sed 's/\(^.*\)=\(.*\)/\1/g')
               VALUE=$(echo $option | sed 's/\(^.*\)=\(.*\)/\2/g')
               echo "  ${KEY}: ${VALUE}"
-              $("export ${option}")
+              $("setenv ${KEY} ${VALUE}")
               echo $validate
            done
         done
