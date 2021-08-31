@@ -63,9 +63,11 @@ spec:
               echo "  ${KEY}: ${VALUE}"
             done
 
-            if [ need_validate $COMP_OPTIONS ] ; then
+            need_validate $COMP_OPTIONS
+            if [ $? -eq 1 ] ; then
               echo "Validating ${component} YAMLs."
-              if [ validate_kustomize $component ] ; then
+              validate_kustomize $component
+              if [ $? -eq 1 ] ; then
                 echo "Validation successful."
               else
                 echo "Failed validation."
