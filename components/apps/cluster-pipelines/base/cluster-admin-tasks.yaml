@@ -49,6 +49,7 @@ spec:
             return $RESULT
           }
 
+          sleep 10000
           for component in "$@"
           do
             COMP_NAME=$(echo "$component" | sed 's/\(^.*\)(\(.*\))/\1/g')
