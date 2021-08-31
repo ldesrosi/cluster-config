@@ -28,7 +28,15 @@ spec:
           check_options() {
             local options=$1
             local value=$2
-            return [[ " ${options[*]} " =~ "${value}=true" ]];
+            local result=1
+            for option in $options
+            do
+              if [[ $option == $value ]]; then
+                result=0
+                break
+              fi
+            done 
+            return result;
           }
 
           need_copy() {
