@@ -10,4 +10,4 @@
     - name: source-list
       value: 
         - openshift-logging/operator/overlays/stable(validate=true,copy=true,generate=true)
-        - elastisearch-operator/overlays/stable(validate=false,copy=false,generate=false)
+        - elastisearch-operator/overlays/5.0(validate=false,copy=false,generate=false)

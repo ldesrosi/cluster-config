@@ -40,7 +40,8 @@ spec:
 
           validate_kustomize() {
             local component_path=$1
-            $(oc apply -k $component_path --dry-run=client); RESULT=$?
+            cd $component_path
+            $(oc apply -k . --dry-run=client); RESULT=$?
             return $RESULT
           }
 
