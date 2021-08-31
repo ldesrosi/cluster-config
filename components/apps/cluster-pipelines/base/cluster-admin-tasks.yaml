@@ -41,7 +41,6 @@ spec:
           validate_kustomize() {
             local component_path=$1
             $(oc apply -k $component_path --dry-run=client); RESULT=$?
-            sleep 10000
             return $RESULT
           }
 
