@@ -23,6 +23,32 @@ spec:
       script: |
         #!/usr/bin/env bash
 
+        result=success
+
+        check_options() {
+          local options=$1
+          local value=$2
+          return [[ " ${options[*]} " =~ "${value}=true" ]];
+        }
+
+        need_copy() {
+          return check_options $1 copy
+        }
+
+        need_validate() {
+          return check_options $1 validate
+        }
+
+        need_generate() {
+          return check_options $1 generate
+        }
+
+        validate_kustomize() {
+            local component_path=$1
+            $(oc apply -k $component_path --dry-run=client); RESULT=$?
+            return $RESULT
+        }
+
         for component in "$@"
         do
            COMP_NAME=$(echo "$component" | sed 's/\(^.*\)(\(.*\))/\1/g')
@@ -34,12 +60,21 @@ spec:
               KEY=$(echo $option | sed 's/\(^.*\)=\(.*\)/\1/g')
               VALUE=$(echo $option | sed 's/\(^.*\)=\(.*\)/\2/g')
               echo "  ${KEY}: ${VALUE}"
-              $("setenv ${KEY} ${VALUE}")
-              echo $validate
            done
+
+           if [ need_validate $COMP_OPTIONS ] then
+              echo "Validating ${component} YAMLs."
+              if [ validate_kustomize $component ] then
+                echo "Validation successful."
+              else
+                 echo "Failed validation."
+                 result=failure
+              fi
+           fi
+
         done
 
-        echo -n success >> $(results.status.path)
+        echo -n $result >> $(results.status.path)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
