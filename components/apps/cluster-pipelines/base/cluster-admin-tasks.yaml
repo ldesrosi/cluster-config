@@ -21,17 +21,18 @@ spec:
       workingDir: /workspace/source
       args: [ "$(params.source-dirs)" ]
       script: |
-          #!/usr/bin/env bash
+          #!/bin/bash
 
           result=success
 
           check_options() {
-            local options=$1
-            local value=$2
+            local value=$1
+            shift
+            local options=("$@")
             local result=1
             for option in $options
             do
-              if [[ $option == $value ]]; then
+              if [ $option == $value ] ; then
                 result=0
                 break
               fi
@@ -40,15 +41,18 @@ spec:
           }
 
           need_copy() {
-            return check_options $1 copy
+            local options=("$@")
+            return check_options "copy" "${options[@]}"
           }
 
           need_validate() {
-            return check_options $1 validate
+            local options=("$@")
+            return check_options "validate" "${options[@]}"
           }
 
           need_generate() {
-            return check_options $1 generate
+            local options=("$@")
+            return check_options "generate" "${options[@]}"
           }
 
           validate_kustomize() {
@@ -70,7 +74,7 @@ spec:
               echo "  ${KEY}: ${VALUE}"
             done
 
-            need_validate $COMP_OPTIONS
+            need_validate "${COMP_OPTIONS[@]}"
             if [ $? -eq 1 ] ; then
               echo "Validating ${component} YAMLs."
               validate_kustomize $component
