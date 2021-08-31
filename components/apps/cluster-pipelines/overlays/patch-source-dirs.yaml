@@ -9,5 +9,5 @@
       value: $(tt.params.git-revision)
     - name: source-list
       value: 
-        - cert-manager(validate=true,copy=true,generate=true)
-        - elastisearch-operator(validate=false,copy=false,generate=false)
+        - openshift-logging/operator/overlays/stable(validate=true,copy=true,generate=true)
+        - elastisearch-operator/overlays/stable(validate=false,copy=false,generate=false)
