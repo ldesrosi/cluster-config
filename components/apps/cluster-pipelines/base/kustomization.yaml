@@ -2,6 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+- pipeline-clusterrole.yaml
+- pipeline-clusterrolebinding.yaml
 - cluster-admin-tasks.yaml
 - cluster-admin-pipelines.yaml
 - cluster-admin-trigger-template.yaml
