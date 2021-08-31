@@ -40,8 +40,9 @@ spec:
 
           validate_kustomize() {
             local component_path=$1
-            cd $component_path
+            pushd $component_path
             $(oc apply -k . --dry-run=client); RESULT=$?
+            popd
             return $RESULT
           }
 
