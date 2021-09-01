@@ -29,13 +29,16 @@ spec:
             local value=$1
             shift
             local options=("$@")
+            local result=1
             for option in $options
             do
               if [ $option == $value ] ; then
-                return 0
+                result=0
+                break;
               fi
             done 
-            return 1;
+            echo $result
+            return $result;
           }
 
           validate_kustomize() {
@@ -62,7 +65,7 @@ spec:
             if [ $? -eq 1 ] ; then
               echo "Validating ${COMP_NAME} YAMLs."
               validate_kustomize $COMP_NAME
-              if [ $? -eq 1 ] ; then
+              if [ $? -eq 0 ] ; then
                 echo "Validation successful."
               else
                 echo "Failed validation."
