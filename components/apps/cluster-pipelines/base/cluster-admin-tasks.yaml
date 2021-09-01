@@ -17,7 +17,7 @@ spec:
       description: Status can be one of ['Passed','Failed']
   steps:
     - name: process-source-repo
-      image: quay.io/openshift/origin-cli:4.7
+      image: quay.io/openshift/origin-cli:4.8
       workingDir: /workspace/source
       args: [ "$(params.source-dirs)" ]
       script: |
