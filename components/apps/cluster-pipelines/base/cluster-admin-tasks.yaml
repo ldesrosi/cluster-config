@@ -37,7 +37,8 @@ spec:
                 break;
               fi
             done 
-            return $result;
+            echo $result
+            return $result
           }
 
           validate_kustomize() {
@@ -60,7 +61,7 @@ spec:
             done
 
             check_options "validate" "${COMP_OPTIONS[@]}"
-            if [ $? -eq 1 ] ; then
+            if [ $? -eq 0 ] ; then
               echo "Validating ${COMP_NAME} YAMLs."
               validate_kustomize $COMP_NAME
               if [ $? -eq 0 ] ; then
@@ -69,6 +70,8 @@ spec:
                 echo "Failed validation."
                 result=failure
               fi
+            else
+              echo "Skipping validation."
             fi
           done
 
