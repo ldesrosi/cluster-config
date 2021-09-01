@@ -40,10 +40,8 @@ spec:
 
           validate_kustomize() {
             local component_path=$1
-            pushd $component_path
-            $(kustomize build .); RESULT=$?
-            popd
-            return $RESULT
+            kustomize build $component_path
+            return $?
           }
 
           for component in "$@"
