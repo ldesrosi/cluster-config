@@ -40,8 +40,9 @@ spec:
 
           validate_kustomize() {
             local component_path=$1
-            kubectl apply -k $component_path --dry-run=client
-            return $?
+            kubectl apply -k $component_path --dry-run=client; RESULT=$?
+            echo $RESULT
+            return $RESULT
           }
 
           for component in "$@"
