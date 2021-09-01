@@ -33,6 +33,7 @@ spec:
             for option in $options
             do
               if [ $option == $value ] ; then
+                echo "I found it."
                 result=0
                 break;
               fi
