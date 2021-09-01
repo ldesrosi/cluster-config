@@ -40,7 +40,7 @@ spec:
 
           validate_kustomize() {
             local component_path=$1
-            kustomize build $component_path
+            kubectl apply -k $component_path --dry-run=client
             return $?
           }
 
