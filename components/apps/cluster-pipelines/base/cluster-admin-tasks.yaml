@@ -30,17 +30,13 @@ spec:
             shift
             local options=("$@")
             local result=1
-            echo "Value ${value}"
-            echo "Options ${options}"
             for option in $options
             do
               if [ $option == "${value}=true" ] ; then
-                echo "I found it."
                 result=0
                 break;
               fi
             done 
-            echo $result
             return $result
           }
 
