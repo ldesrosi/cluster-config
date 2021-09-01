@@ -37,7 +37,6 @@ spec:
                 break;
               fi
             done 
-            echo $result
             return $result;
           }
 
