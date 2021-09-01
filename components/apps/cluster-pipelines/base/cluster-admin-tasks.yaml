@@ -17,7 +17,7 @@ spec:
       description: Status can be one of ['Passed','Failed']
   steps:
     - name: process-source-repo
-      image: quay.io/openshift/origin-cli:4.8
+      image: argoproj/argocd:v2.0.5
       workingDir: /workspace/source
       args: [ "$(params.source-dirs)" ]
       script: |
@@ -41,7 +41,7 @@ spec:
           validate_kustomize() {
             local component_path=$1
             pushd $component_path
-            $(oc apply -k . --dry-run=client); RESULT=$?
+            $(kustomize build .); RESULT=$?
             popd
             return $RESULT
           }
